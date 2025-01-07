@@ -22,5 +22,5 @@ export default function ConfirmDetailsForm() {
 
 const styles = StyleSheet.create({
   container: { backgroundColor: "white", flex: 1, padding: 10 },
-  button: { marginTop: "auto", marginBottom: 25 },
+  button: { marginTop: "auto" },
 });

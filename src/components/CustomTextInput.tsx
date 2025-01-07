@@ -34,7 +34,7 @@ export default function CustomTextInput({
       {label && <Text style={styles.label}>{label}</Text>}
       <TextInput
         {...textInputProps}
-        value={value}
+        value={String(value)}
         onBlur={onBlur}
         onChangeText={onChange}
         style={[

@@ -6,14 +6,20 @@ import KeyboardAwareScrollView from "../../components/KeyboardAwareScrollView";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { PaymentDetails, PaymentDetailsSchema } from "../../schema";
 import CustomTextInput from "../../components/CustomTextInput";
+import Checkout from "../../store/checkout";
 
 export default function PaymentDetailsForm() {
+  const { setPaymentInfo, paymentInfo } = Checkout();
   const form = useForm<PaymentDetails>({
     resolver: zodResolver(PaymentDetailsSchema),
+    defaultValues: {
+      ...paymentInfo,
+      cvv: Number(paymentInfo?.cvv) <= 0 ? "" : paymentInfo?.cvv,
+    } as PaymentDetails,
   });
   const OnNext: SubmitHandler<PaymentDetails> = (data) => {
     // validate from
-    console.log(data);
+    setPaymentInfo(data);
     // route to next page
     router.push("/checkout/confirm");
   };

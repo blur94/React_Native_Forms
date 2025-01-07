@@ -6,11 +6,13 @@ import KeyboardAwareScrollView from "../../components/KeyboardAwareScrollView";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PersonalDetails, PersonalDetailsSchema } from "../../schema";
+import Checkout from "../../store/checkout";
 
 export default function PersonalDetailsForm() {
+  const { setPersonalInfo, personalInfo } = Checkout();
   const OnNext: SubmitHandler<PersonalDetails> = (data) => {
     // validate from
-    console.log(data);
+    setPersonalInfo(data);
 
     // route to next page
     router.push("/checkout/payment");
@@ -18,6 +20,7 @@ export default function PersonalDetailsForm() {
 
   const form = useForm<PersonalDetails>({
     resolver: zodResolver(PersonalDetailsSchema),
+    defaultValues: personalInfo,
   });
 
   return (

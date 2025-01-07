@@ -25,7 +25,9 @@ export default function CustomTextInput({
   const {
     field: { value, onBlur, onChange },
     fieldState: { error },
-  } = useController({ name });
+  } = useController({
+    name,
+  });
 
   return (
     <View style={containerStyle}>

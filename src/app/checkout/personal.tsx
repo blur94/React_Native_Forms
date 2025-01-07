@@ -1,21 +1,25 @@
 import { StyleSheet, View } from "react-native";
 import { PrimaryButton } from "../../components/CustomButton";
 import { router } from "expo-router";
-import { useState } from "react";
 import CustomTextInput from "../../components/CustomTextInput";
 import KeyboardAwareScrollView from "../../components/KeyboardAwareScrollView";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PersonalDetails, PersonalDetailsSchema } from "../../schema";
 
 export default function PersonalDetailsForm() {
-  const [fullName, setFullName] = useState("");
-  const OnNext = (data) => {
+  const OnNext: SubmitHandler<PersonalDetails> = (data) => {
     // validate from
     console.log(data);
 
     // route to next page
     router.push("/checkout/payment");
   };
-  const form = useForm();
+
+  const form = useForm<PersonalDetails>({
+    resolver: zodResolver(PersonalDetailsSchema),
+  });
+
   return (
     <KeyboardAwareScrollView>
       <FormProvider {...form}>

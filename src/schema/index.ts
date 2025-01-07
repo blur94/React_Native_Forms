@@ -1,4 +1,5 @@
 import { z } from "zod";
+import dayjs from "dayjs";
 
 export const PersonalDetailsSchema = z.object({
   fullName: z
@@ -29,11 +30,22 @@ export const PaymentDetailsSchema = z.object({
       required_error: "Expiry Date is required",
       invalid_type_error: "Expiry Date is invalid",
     })
-    .min(1, "Expiry Date is required"),
+    .regex(/^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/, "Expiry Date is invalid")
+    .min(1, "Expiry Date is required")
+    .refine(
+      (date) => {
+        const [month, year] = date.split("/").map(Number);
+        const expiryDate = dayjs(
+          new Date(year < 100 ? 2000 + year : year, month - 1)
+        );
+        return expiryDate.endOf("month").isAfter(dayjs());
+      },
+      { message: "Expiry Date cannot be in the past" }
+    ),
   cvv: z.coerce
     .number({ required_error: "CVV is required" })
     .min(100, "CVV is required")
-    .max(999, "CVV is required"),
+    .max(999, "CVV is too long"),
 });
 
 export type PaymentDetails = z.infer<typeof PaymentDetailsSchema>;

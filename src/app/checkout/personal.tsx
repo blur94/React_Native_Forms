@@ -7,6 +7,8 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PersonalDetails, PersonalDetailsSchema } from "../../schema";
 import Checkout from "../../store/checkout";
+import RNPickerSelect from "react-native-picker-select";
+import countries from "../../../assets/countries.json";
 
 export default function PersonalDetailsForm() {
   const { setPersonalInfo, personalInfo } = Checkout();
@@ -30,10 +32,15 @@ export default function PersonalDetailsForm() {
           name="fullName"
           placeholder="Full Name"
           label="Full Name"
-          autoComplete="family-name"
+          autoComplete="name"
         />
 
-        <CustomTextInput name="address" placeholder="Address" label="Address" />
+        <CustomTextInput
+          name="address"
+          placeholder="Address"
+          label="Address"
+          autoComplete="address-line1"
+        />
 
         <View style={{ flexDirection: "row", gap: 5 }}>
           <CustomTextInput
@@ -41,19 +48,43 @@ export default function PersonalDetailsForm() {
             placeholder="City"
             label="City"
             containerStyle={{ flex: 1 }}
+            autoComplete="address-line2"
           />
           <CustomTextInput
             name="postCode"
             placeholder="Post Code"
             label="Post Code"
             containerStyle={{ flex: 1 }}
+            autoComplete="postal-code"
           />
         </View>
+
+        <RNPickerSelect
+          onValueChange={(value) => console.log(value)}
+          items={countries.map((c) => ({ label: c.name, value: c.code }))}
+          placeholder={{ label: "Select Country" }}
+          // useNativeAndroidPickerStyle={false}
+          style={{
+            viewContainer: {
+              marginTop: 4,
+              marginBottom: 4,
+            },
+            inputIOS: {
+              borderColor: "gainsboro",
+              borderWidth: 1,
+              width: "100%",
+              padding: 10,
+              borderRadius: 5,
+            },
+          }}
+        />
+
         <CustomTextInput
           name="phoneNumber"
           placeholder="876545676555"
           label="Phone Number"
           inputMode="tel"
+          autoComplete="tel"
         />
 
         <PrimaryButton

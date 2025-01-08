@@ -9,6 +9,7 @@ import { PersonalDetails, PersonalDetailsSchema } from "../../schema";
 import Checkout from "../../store/checkout";
 import RNPickerSelect from "react-native-picker-select";
 import countries from "../../../assets/countries.json";
+import CustomPicker from "../../components/CustomPicker";
 
 export default function PersonalDetailsForm() {
   const { setPersonalInfo, personalInfo } = Checkout();
@@ -59,24 +60,11 @@ export default function PersonalDetailsForm() {
           />
         </View>
 
-        <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
+        <CustomPicker
+          name="country"
           items={countries.map((c) => ({ label: c.name, value: c.code }))}
           placeholder={{ label: "Select Country" }}
-          // useNativeAndroidPickerStyle={false}
-          style={{
-            viewContainer: {
-              marginTop: 4,
-              marginBottom: 4,
-            },
-            inputIOS: {
-              borderColor: "gainsboro",
-              borderWidth: 1,
-              width: "100%",
-              padding: 10,
-              borderRadius: 5,
-            },
-          }}
+          useNativeAndroidPickerStyle={false}
         />
 
         <CustomTextInput

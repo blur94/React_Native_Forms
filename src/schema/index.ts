@@ -14,6 +14,9 @@ export const PersonalDetailsSchema = z.object({
   postCode: z
     .string({ required_error: "Post Code is required" })
     .min(1, "Post Code is required"),
+  country: z
+    .string({ required_error: "Country is required" })
+    .min(1, "Country is required"),
   phoneNumber: z
     .string({ required_error: "Phone Number is required" })
     .min(1, "Phone Number is required"),

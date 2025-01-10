@@ -49,6 +49,7 @@ export const PaymentDetailsSchema = z.object({
     .number({ required_error: "CVV is required" })
     .min(100, "CVV is required")
     .max(999, "CVV is too long"),
+  saveCard: z.boolean().default(false),
 });
 
 export type PaymentDetails = z.infer<typeof PaymentDetailsSchema>;

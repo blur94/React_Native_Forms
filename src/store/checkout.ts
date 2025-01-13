@@ -7,9 +7,10 @@ const initPersonal = {
   city: "",
   postCode: "",
   phoneNumber: "",
+  country: "",
 };
 
-const initPayment = { cardNumber: "", expiryDate: "", cvv: 0 };
+const initPayment = { cardNumber: "", expiryDate: "", cvv: 0, saveCard: false };
 
 const Checkout = create<CheckoutState>((set) => ({
   personalInfo: initPersonal,

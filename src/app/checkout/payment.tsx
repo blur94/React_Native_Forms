@@ -7,6 +7,9 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { PaymentDetails, PaymentDetailsSchema } from "../../schema";
 import CustomTextInput from "../../components/CustomTextInput";
 import Checkout from "../../store/checkout";
+import CustomCheckbox from "../../components/CustomCheckbox";
+import CustomSwitch from "../../components/CustomSwitch";
+import CustomDateTimePicker from "../../components/CustomDateTimePicker";
 
 export default function PaymentDetailsForm() {
   const { setPaymentInfo, paymentInfo } = Checkout();
@@ -52,6 +55,10 @@ export default function PaymentDetailsForm() {
             inputMode="numeric"
           />
         </View>
+
+        <CustomCheckbox name="saveCard" label="Save this card?" />
+        <CustomSwitch name="cardSwitch" label="Switch Card" />
+        <CustomDateTimePicker name="date" />
 
         <PrimaryButton
           title="Next"
